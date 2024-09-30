@@ -1,0 +1,14 @@
+model
+  name: FBA
+  description: Flux balance analysis based leaf model
+  repository_commit: d581f6e604779ac1d73314ba2500eb577aa26d01
+  repository_url: https://github.com/cropsinsilico/ODE_FBA_Photosynthesis2021
+  language: python
+  args: ./dielFBA_model_only.py
+  inputs:
+  - name: input1
+    vars: [Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR]
+    default_file:
+      name: ./ePhotosynthesis/OutputRate.txt
+      filetype: table
+      field_names: Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR

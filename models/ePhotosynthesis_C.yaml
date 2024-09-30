@@ -1,0 +1,48 @@
+model:
+  name: ePhotosynthesis
+  description: C++ port of the ePhotosynthesis Matlab model code
+  repository_commit: 02b911b8f30588d8eafbb277abd31cc03cb9dbb5
+  repository_url: https://github.com/cropsinsilico/ePhotosynthesis_C
+  language: cmake
+  args: [./ePhoto, -d, 1, -a, InputATPCost.txt, -e, InputEvn.txt, -T, 25, -n, InputEnzyme.txt, -g, InputGRNC.txt]
+  target: ePhoto
+  preserve_cache: true
+  inputs:
+    - name: param
+      datatype:
+        type: object
+        allowWrapped: true
+        properties:
+          CO2:
+            type: number
+          PAR:
+            type: number
+          ATPCost:
+            type: number
+          GRNC:
+            type: integer
+          SucPath:
+            type: boolean
+      # Single timestep
+      # default_file:
+      #   name: ./InputEvn.txt
+      #   filetype: map
+      # Multiple timesteps
+      default_file:
+        name: ./InputSteps.txt
+        filetype: table
+        transform:
+          transformtype: map
+  outputs:
+    - name: output
+      vars: [Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR]
+      # Single timestep
+      # default_file:
+      #   name: output_ygg_single.data
+      #   filetype: table
+      #   field_names: Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR
+      # Multiple timesteps
+      default_file:
+        name: output_ygg_multiple.data
+        filetype: table
+        field_names: Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR

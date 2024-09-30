@@ -1,0 +1,25 @@
+model:
+  name: GRN
+  description: Gene regulatory network model
+  repository_commit: cf0ad30146783aba4b079b69effbc013e491372b
+  repository_url: https://github.com/cropsinsilico/GRN_Model
+  language: R
+  args: ./src/GRNModel.R
+  function: GRNModel
+  inputs:
+  - name: LMData
+    recv_converter: pandas
+    default_file:
+      name: ./Input/TrainingDataLeafSoy.txt
+      filetype : pandas
+      as_array: true
+  - name: OptionsFile
+      default_file:
+      name: ./Input/Input_options.txt
+      filetype: table
+  outputs:
+  - name: ExpPercDiff
+    default_file:
+      name: ./Output/GRN_Output.txt
+      filetype: pandas
+      as_array: true

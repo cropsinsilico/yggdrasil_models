@@ -1,0 +1,30 @@
+model:
+  name: GrCM
+  description: Protein translation model
+  repository_commit: e92d9243ca08d47e2fc1faa8069c9b3daaa0ffa2
+  repository_url: https://github.com/cropsinsilico/ProtTranslationModel_CO2
+  language: python
+  args: ./src/GrCM_plain.py
+  function: GrCM
+  inputs:
+    - name: grn_input
+      recv_converter: pandas
+      default_file:
+        name: ./Input/GRN_Output.txt
+        filetype: pandas
+    - name: data_static
+      recv_converter: pandas
+      outside_loop: true
+      default_file:
+        name: ./Input/GrCM_static.txt
+        filetype: pandas
+    - name: data_inp
+      recv_converter: pandas
+      default_file:
+        name: ./Input/GrCM_input.txt
+        filetype: pandas
+  outputs:
+    - name: data_output
+      default_file:
+        name: ./Output/GrCM_output.txt
+        filetype: pandas
