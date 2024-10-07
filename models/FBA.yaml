@@ -1,4 +1,4 @@
-model
+model:
   name: FBA
   description: Flux balance analysis based leaf model
   repository_commit: d581f6e604779ac1d73314ba2500eb577aa26d01
