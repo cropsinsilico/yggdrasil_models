@@ -11,4 +11,3 @@ model:
     default_file:
       name: ./ePhotosynthesis/OutputRate.txt
       filetype: table
-      field_names: Light intensity,Vc,Vo,VPGA,VT3P,Vstarch,Vt_glycerate,Vt_glycolate,CO2AR
