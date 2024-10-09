@@ -1,3 +1,4 @@
+# The model repository is missing a LICENSE
 model:
   name: FBA
   description: Flux balance analysis based leaf model
