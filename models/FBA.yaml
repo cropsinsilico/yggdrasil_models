@@ -13,3 +13,4 @@ model:
     default_file:
       name: ./ePhotosynthesis/OutputRate.txt
       filetype: table
+  outputs: []
