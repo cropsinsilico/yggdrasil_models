@@ -1,0 +1,37 @@
+models:
+  - name: BioCro
+    description: Wrapper for BioCro by way of yggdrasil module
+    repository_commit: 35dccb89fa3fc50a2788e2d41a63c087fbabd2b7
+    repository_url: https://github.com/cropsinsilico/BML-yggdrasil
+    language: R
+    args: ./biocro_wrapper.R
+    function: BioCroWrapper
+    dependencies:
+      - package: BioCro
+    inputs:
+      - name: input
+        datatype:
+          type: array
+          items:
+            - type: object
+              properties:
+                crop:
+                  type: string
+                year:
+                  type: number
+        default_file:
+          name: ../Input/input_map.txt
+          filetype: map
+          transforms:
+            - transformtype: statement
+              statement: '[%x%]'
+    outputs:
+      - name: result
+        datatype:
+          type: array
+          items:
+            type: 1darray
+            subtype: float
+        default_file:
+          name: result.txt
+          filetype: pandas

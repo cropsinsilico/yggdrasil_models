@@ -8,18 +8,26 @@ model:
   function: GRNModel
   inputs:
   - name: LMData
-    recv_converter: pandas
+    datatype:
+      type: array
+      items:
+        type: 1darray
+        subtype: float
+    transform:
+      - transformtype: pandas
     default_file:
       name: ./Input/TrainingDataLeafSoy.txt
-      filetype : pandas
-      as_array: true
+      filetype: pandas
   - name: OptionsFile
-      default_file:
+    datatype:
+      type: array
+    default_file:
       name: ./Input/Input_options.txt
       filetype: table
   outputs:
   - name: ExpPercDiff
+    datatype:
+      type: array
     default_file:
       name: ./Output/GRN_Output.txt
       filetype: pandas
-      as_array: true

@@ -5,10 +5,13 @@ model:
   repository_url: https://gitlab.com/langmm/OpenSimRoot
   language: osr
   timesync:
-    inputs:  [carbonAllocation2Roots, saturatedConductivity]
-    outputs: [saturatedWaterContent]
+    - name: timesync
+      inputs:  [carbonAllocation2Roots, saturatedConductivity]
+      outputs: [saturatedWaterContent]
+  inputs: []
+  outputs: []
   args:
-    - ./src/osr_model.xml
+    - ./OpenSimRoot/InputFiles/runMaize.xml
   copy_xml_to_osr: True
   update_interval:
     timesync: 0.1

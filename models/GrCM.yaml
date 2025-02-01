@@ -7,24 +7,122 @@ model:
   args: ./src/GrCM_plain.py
   function: GrCM
   inputs:
-    - name: grn_input
-      recv_converter: pandas
-      default_file:
-        name: ./Input/GRN_Output.txt
-        filetype: pandas
-    - name: data_static
-      recv_converter: pandas
-      outside_loop: true
-      default_file:
-        name: ./Input/GrCM_static.txt
-        filetype: pandas
-    - name: data_inp
-      recv_converter: pandas
-      default_file:
-        name: ./Input/GrCM_input.txt
-        filetype: pandas
+  - name: grn_input
+    datatype:
+      type: array
+      items:
+        type: 1darray
+        subtype: float
+    transform:
+      - transformtype: pandas
+      - transformtype: statement
+        statement: "%x%.reset_index() if isinstance(%x%, DataFrame) else %x%"
+    default_file:
+      name: ./Input/GRN_Output.txt
+      filetype: pandas
+      index_col: 0
+  - name: data_static
+    datatype:
+      type: array
+      items:
+        - title: Glyma_ID
+          type: 1darray
+          subtype: unicode  # string
+        - title: Description
+          type: 1darray
+          subtype: unicode  # string
+        - title: Initial_protein_contentAmb
+          type: 1darray
+          subtype: float
+        - title: Initial_protein_contentEle
+          type: 1darray
+          subtype: float
+        - title: mRNA_ele
+          type: 1darray
+          subtype: float
+        - title: mRNA_Amb
+          type: 1darray
+          subtype: float
+    transform:
+      - transformtype: pandas
+    outside_loop: true
+    default_file:
+      name: ./Input/GrCM_static.txt
+      filetype: pandas
+  - name: data_inp
+    datatype:
+      type: array
+      items:
+        - title: Glyma_ID
+          type: 1darray
+          subtype: string
+        - title: Description
+          type: 1darray
+          subtype: string
+        - title: U
+          type: 1darray
+          subtype: float
+        - title: L
+          type: 1darray
+          subtype: float
+        - title: D
+          type: 1darray
+          subtype: float
+    transform:
+      - transformtype: pandas
+    default_file:
+      name: ./Input/GrCM_input.txt
+      filetype: pandas
   outputs:
-    - name: data_output
-      default_file:
-        name: ./Output/GrCM_output.txt
-        filetype: pandas
+  - name: data_output
+    datatype:
+      type: array
+      items:
+        - title: Glyma_ID
+          type: 1darray
+          subtype: string
+        - title: Description
+          type: 1darray
+          subtype: string
+        - title: Initial_protein_contentAmb
+          type: 1darray
+          subtype: float
+        - title: Initial_protein_contentEle
+          type: 1darray
+          subtype: float
+        - title: mRNA_ele
+          type: 1darray
+          subtype: float
+        - title: mRNA_Amb
+          type: 1darray
+          subtype: float
+        - title: Averages_Elevated
+          type: 1darray
+          subtype: float
+        - title: Averages_ambient
+          type: 1darray
+          subtype: float
+        - title: mRNA_eleMutant
+          type: 1darray
+          subtype: float
+        - title: mRNA_ambMutant
+          type: 1darray
+          subtype: float
+        - title: MutantEleByWTAmb
+          type: 1darray
+          subtype: float
+        - title: MutantAmbByWTAmb
+          type: 1darray
+          subtype: float
+        - title: Ele:Amb
+          type: 1darray
+          subtype: float
+        - title: EleMutant:Amb
+          type: 1darray
+          subtype: float
+        - title: AmbMutant:Amb
+          type: 1darray
+          subtype: float
+    default_file:
+      name: ./Output/GrCM_output.txt
+      filetype: pandas
