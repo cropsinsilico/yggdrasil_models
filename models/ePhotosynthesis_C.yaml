@@ -1,14 +1,41 @@
 model:
   name: ePhotosynthesis
   description: C++ port of the ePhotosynthesis Matlab model code
-  repository_commit: e521ffb8b13998abbaed71e21d73893a2aac0da7
+  repository_commit: 91965d3122637cdc88da2ca7a9732690d868f709
   repository_url: https://github.com/cropsinsilico/ePhotosynthesis_C
   language: cmake
   target_language: c++
   args: [ePhoto, -d, 4, -a, InputATPCost.txt, -e, InputEvn.txt, -T, 25, -n, InputEnzyme.txt, -g, InputGRNC.txt]
   dependencies:
-    - package: "sundials>=5.7.0"
-    - package: "boost>=1.36.0"
+    - package: sundials
+      options:
+        - package: sundials
+          package_manager: conda
+          version: ">=5.7.0"
+        - package: sundials
+          repository: https://github.com/LLNL/sundials.git
+          install_method: cmake
+          args_config: [-DEXAMPLES_ENABLE_C:BOOL=OFF, -DEXAMPLES_ENABLE_CXX:BOOL=OFF]
+          args_build: [--config, RelWithDebInfo]
+          # additional_steps:
+          #   - 'mkdir build'
+          #   - 'cmake .. -DEXAMPLES_ENABLE_C:BOOL=OFF -DEXAMPLES_ENABLE_CXX:BOOL=OFF'
+          #   - 'cmake --build . --config RelWithDebInfo'
+          #   - 'cmake --install .'
+    - package: boost
+      version: '>=1.36.0'
+      options:
+        - package: boost
+          package_manager: conda
+        - package: boost
+          package_manager: apt
+          operating_systems: [linux]
+        - package: boost
+          package_manager: brew
+          operating_systems: [macos]
+        - package: boost
+          package_manager: choco
+          operating_systems: [windows]
   inputs:
     - name: param
       datatype:

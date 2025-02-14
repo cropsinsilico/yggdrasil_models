@@ -3,9 +3,25 @@ model:
   description: Gene regulatory network model
   repository_commit: cf0ad30146783aba4b079b69effbc013e491372b
   repository_url: https://github.com/cropsinsilico/GRN_Model
+  repository_patches:
+    - ../patches/GRN_Model-0001.patch
   language: R
   args: ./src/GRNModel.R
   function: GRNModel
+  dependencies:
+    - package_manager: cran
+      package: dplyr
+    - package_manager: cran
+      package: "data.table"
+    - package_manager: cran
+      package: BioNet
+      r_install_steps:
+        - 'if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager", repos="http://cloud.r-project.org")'
+        - 'BiocManager::install(c("BioNet"))'
+    - package_manager: cran
+      package: gridExtra
+    # - package_manager: cran
+    #   package: ggplot
   inputs:
   - name: LMData
     datatype:
@@ -15,9 +31,12 @@ model:
         subtype: float
     transform:
       - transformtype: pandas
+      - transformtype: statement
+        statement: "%x%.reset_index() if isinstance(%x%, DataFrame) else %x%"
     default_file:
       name: ./Input/TrainingDataLeafSoy.txt
       filetype: pandas
+      index_col: 0
   - name: OptionsFile
     datatype:
       type: array
@@ -27,7 +46,11 @@ model:
   outputs:
   - name: ExpPercDiff
     datatype:
-      type: array
+      type: bytes  # Allow default as first column (index) is string
+      # type: array
+      # items:
+      #   type: 1darray
+      #   subtype: float
     default_file:
       name: ./Output/GRN_Output.txt
       filetype: pandas

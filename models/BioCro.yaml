@@ -1,13 +1,14 @@
 models:
   - name: BioCro
     description: Wrapper for BioCro by way of yggdrasil module
-    repository_commit: 35dccb89fa3fc50a2788e2d41a63c087fbabd2b7
+    repository_commit: 5d7eee8a311fa9b03354487de54dc26db2751ec1
     repository_url: https://github.com/cropsinsilico/BML-yggdrasil
     language: R
     args: ./biocro_wrapper.R
     function: BioCroWrapper
     dependencies:
       - package: BioCro
+        package_manager: cran
     inputs:
       - name: input
         datatype:
@@ -20,7 +21,7 @@ models:
                 year:
                   type: number
         default_file:
-          name: ../Input/input_map.txt
+          name: ./Input/input_map.txt
           filetype: map
           transforms:
             - transformtype: statement
