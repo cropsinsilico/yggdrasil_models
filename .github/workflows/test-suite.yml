@@ -61,7 +61,8 @@ jobs:
           cd yggdrasil
           git checkout topic/cache
           git submodule update --recursive
-          python utils/setup_test_env.py install conda --for-development --always-yes --build-method direct
+          python utils/setup_test_env.py deps conda --for-development --always-yes --no-sudo --python-only --install-mpi --install-rmq --install-sbml --install-omp
+          python utils/setup_test_env.py install conda --for-development --always-yes --without-deps --build-method direct
       - name: Install specific version of Yggdrasil from conda-forge
         if: matrix.yggdrasil-version != 'latest' && matrix.yggdrasil-version != 'dev'
         run: |
