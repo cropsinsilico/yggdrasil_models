@@ -41,6 +41,7 @@ jobs:
           conda-remove-defaults: true
       - name: Check conda installation
         run: |
+          conda install python -y
           conda info
           conda list
       - name: Install R (Windows)
