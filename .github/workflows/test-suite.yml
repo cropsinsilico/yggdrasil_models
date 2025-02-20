@@ -57,7 +57,7 @@ jobs:
       - name: Install development version of Yggdrasil
         if: matrix.yggdrasil-version == 'dev'
         run: |
-          git clone https://github.com/cropsinsilico/yggdrasil.git
+          git clone --recurse-submodules https://github.com/cropsinsilico/yggdrasil.git
           cd yggdrasil
           git checkout topic/cache
           python utils/setup_test_env.py install conda --for-development --always-yes --build-method direct
@@ -83,4 +83,4 @@ jobs:
           ygginfo --verbose
       - name: Validate models
         run: |
-          python -m yggdrasil validate models --model-submission
+          python -m yggdrasil validate ./models --model-submission
