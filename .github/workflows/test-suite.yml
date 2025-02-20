@@ -60,7 +60,7 @@ jobs:
           git clone https://github.com/cropsinsilico/yggdrasil.git
           cd yggdrasil
           git checkout topic/cache
-          python utils/setup_test_env.py conda-dev --build-method direct
+          python utils/setup_test_env.py install conda --for-development --always-yes --build-method direct
       - name: Install specific version of Yggdrasil from conda-forge
         if: matrix.yggdrasil-version != 'latest' && matrix.yggdrasil-version != 'dev'
         run: |
