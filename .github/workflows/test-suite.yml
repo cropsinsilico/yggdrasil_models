@@ -50,13 +50,18 @@ jobs:
       #   if: matrix.os != 'windows-latest'
       #   run: |
       #     conda install c-compiler cxx-compiler
+      - name: Install Yggdrasil from conda-forge
+        if: matrix.yggdrasil-version == 'latest'
+        run: |
+          conda install yggdrasil
       - name: Install development version of Yggdrasil
         if: matrix.yggdrasil-version == 'dev'
         run: |
           git clone https://github.com/cropsinsilico/yggdrasil.git
           cd yggdrasil
+          git checkout topic/cache
           python utils/setup_test_env.py conda-dev --build-method direct
-      - name: Install specific version of Yggdrasil via conda
+      - name: Install specific version of Yggdrasil from conda-forge
         if: matrix.yggdrasil-version != 'latest' && matrix.yggdrasil-version != 'dev'
         run: |
           conda install yggdrasil==${{ matrix.yggdrasil-version }} -y
@@ -78,4 +83,4 @@ jobs:
           ygginfo --verbose
       - name: Validate models
         run: |
-          python -m yggdrasil validate models
+          python -m yggdrasil validate models --model-submission
