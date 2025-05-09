@@ -7,7 +7,7 @@ models:
     args: ./biocro_wrapper.R
     function: BioCroWrapper
     dependencies:
-      - package: BioCro
+      - package: BioCro==3.2.0
         package_manager: cran
     inputs:
       - name: param
