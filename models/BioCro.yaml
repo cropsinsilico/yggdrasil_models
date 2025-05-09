@@ -1,7 +1,7 @@
 models:
   - name: BioCro
     description: Wrapper for BioCro by way of yggdrasil module
-    repository_commit: a6c94b26fbe83317c0f0d1f1cb4c7a0391c0240b
+    repository_commit: 2f41e4d8fe247c7c8b478cd09a5bf435219a0667
     repository_url: https://github.com/cropsinsilico/BML-yggdrasil
     language: R
     args: ./biocro_wrapper.R
@@ -16,8 +16,54 @@ models:
           properties:
             crop:
               type: string
+            Catm:
+              type: number
+            # Time parameters
             year:
               type: number
+            doy:
+              type: number
+            hour:
+              type: number
+            hour_start:
+              type: number
+            hour_end:
+              type: number
+            doy_sow:
+              type: number
+            doy_harvest:
+              type: number
+            doy_start:
+              type: number
+            doy_end:
+              type: number
+            # Weather parameters
+            zen:
+              type: ndarray
+              subtype: float
+            solar:
+              type: ndarray
+              subtype: float
+            netsolar:
+              type: ndarray
+              subtype: float
+            dw_solar:
+              type: ndarray
+              subtype: float
+            up_solar:
+              type: ndarray
+              subtype: float
+            temp:
+              type: ndarray
+              subtype: float
+            rh:
+              type: ndarray
+              subtype: float
+            windspeed:
+              type: ndarray
+              subtype: float
+            output_timesteps:
+              type: boolean
         default_file:
           name: ./Input/input_map.txt
           filetype: map
